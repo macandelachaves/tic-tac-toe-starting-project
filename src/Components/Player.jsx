@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Player({ player, symbol }) {
+export default function Player({ player, symbol, isActive }) {
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEditClick() {
@@ -8,7 +8,7 @@ export default function Player({ player, symbol }) {
   }
 
   return (
-    <li>
+    <li className={isActive ? "active" : undefined}>
       <span className="player">
         {isEditing ? (
           <input type="text" required></input>
