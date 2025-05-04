@@ -4,9 +4,23 @@ import GameBoard from "./Components/GameBoard.jsx";
 
 function App() {
   const [activePlayer, setActivePlayer] = useState("O");
+  const [gameTurns, setGameTurns] = useState([]);
 
-  function handleSelectedSquare() {
+  function handleSelectedSquare(indexRow, indexCol) {
     setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
+
+    setGameTurns((prevTurns) => {
+      let currentPlayer = "x";
+      if (prevTurns.length > 0 && prevTurns[0].player === "x") {
+        currentPlayer = "O";
+      }
+
+      const updatedTurns = [
+        { square: { row: indexRow, col: indexCol }, player: currentPlayer },
+        ...prevTurns,
+      ];
+      return updatedTurns;
+    });
   }
 
   return (
@@ -24,10 +38,7 @@ function App() {
             isActive={activePlayer === "O"}
           />
         </ol>
-        <GameBoard
-          onSelectedSquare={handleSelectedSquare}
-          activePlayerSymbol={activePlayer}
-        />
+        <GameBoard onSelectedSquare={handleSelectedSquare} turns={gameTurns} />
       </div>
     </main>
   );
