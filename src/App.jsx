@@ -20,6 +20,10 @@ function deriveActivePlayer(gameTurns) {
 }
 
 function App() {
+  const [playerGameOver, setPlayerGameOver] = useState({
+    X: " Player 1",
+    O: "Player 2",
+  });
   const [gameTurns, setGameTurns] = useState([]);
 
   const activePlayer = deriveActivePlayer(gameTurns);
@@ -69,17 +73,26 @@ function App() {
     });
   }
 
+  function handlePlayersGameOver(symbol, newName) {
+    setPlayerGameOver((prevPlayers) => {
+      return {
+        ...prevPlayers,
+        [symbol]: newName,
+      };
+    });
+  }
+
   return (
     <main>
       <div id="game-container">
         <ol id="players" className="highlight-player ">
           <Player
-            player="Player 1"
+            initialName="Player 1"
             symbol="X"
             isActive={activePlayer === "X"}
           />
           <Player
-            player="Player 2"
+            initialName="Player 2"
             symbol="O"
             isActive={activePlayer === "O"}
           />
